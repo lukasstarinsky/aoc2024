@@ -52,7 +52,7 @@ auto Timer::Elapsed() -> std::string
     {
         out << milliseconds << "ms ";
     }
-    if (milliseconds > 0)
+    if (milliseconds > 0 || microseconds > 0)
     {
         out << microseconds << "us ";
     }

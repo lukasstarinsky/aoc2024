@@ -45,7 +45,7 @@ static auto Part2() -> i64
 
 auto main() -> i32
 {
-    std::println("Day 1");
+    std::println("============== Advent of Code - Day 1 ==============");
 
     Timer timer;
     LoadData();
@@ -59,6 +59,7 @@ auto main() -> i32
     auto pt2 = Part2();
     std::println("Part 2: {}, execution took: {}", pt2, timer.Elapsed());
 
+    std::println("====================================================");
     return 0;
 }
 #endif

@@ -3,7 +3,16 @@
 #ifdef Day2
 static std::ifstream file;
 
-auto Part1_2() -> std::pair<i32, i32>
+static auto IsUnsafe(const std::vector<i32>& levels) -> bool
+{
+    bool increasing = levels[1] > levels[0];
+    return std::adjacent_find(levels.begin(), levels.end(), [increasing](i32 a, i32 b) {
+        auto diff = a - b;
+        return diff == 0 || (increasing && diff > 0) || (!increasing && diff < 0) || std::abs(diff) > 3;
+    }) != levels.end();
+}
+
+static auto Part1_2() -> std::pair<i32, i32>
 {
     std::string reportLine;
 
@@ -12,45 +21,15 @@ auto Part1_2() -> std::pair<i32, i32>
     while (std::getline(file, reportLine))
     {
         std::stringstream report(reportLine);
-        std::vector<i32> levels((std::istream_iterator<i32>(report)), std::istream_iterator<i32>());
+        std::vector<i32> levels((std::istream_iterator<i32>(report)), {});
 
-        bool unsafe = false;
-        bool increasing = levels[1] > levels[0];
-
-        for (i32 i = 0; i < levels.size() - 1; ++i)
-        {
-            auto diff = levels[i] - levels[i + 1];
-
-            if (diff == 0 || (increasing && diff > 0) || (!increasing && diff < 0) || std::abs(diff) > 3)
-            {
-                unsafe = true;
-                break;
-            }
-        }
-
-        // If unsafe, brute force erasing each element for part 2
-        if (unsafe)
+        if (IsUnsafe(levels))
         {
             for (i32 i = 0; i < levels.size(); ++i)
             {
                 auto levelsCopy = levels;
                 levelsCopy.erase(levelsCopy.begin() + i);
-
-                unsafe = false;
-                increasing = levelsCopy[1] > levelsCopy[0];
-
-                for (i32 j = 0; j < levelsCopy.size() - 1; ++j)
-                {
-                    auto diff = levelsCopy[j] - levelsCopy[j + 1];
-
-                    if (diff == 0 || (increasing && diff > 0) || (!increasing && diff < 0) || std::abs(diff) > 3)
-                    {
-                        unsafe = true;
-                        break;
-                    }
-                }
-
-                if (!unsafe)
+                if (!IsUnsafe(levelsCopy))
                 {
                     ++safeCountPt2;
                     break;
@@ -69,7 +48,7 @@ auto Part1_2() -> std::pair<i32, i32>
 
 auto main() -> i32
 {
-    std::println("Day 2");
+    std::println("============== Advent of Code - Day 2 ==============");
 
     Timer timer;
     file.open("input/Day2.txt");
@@ -79,6 +58,7 @@ auto main() -> i32
     auto [pt1, pt2] = Part1_2();
     std::println("Part 1: {}, Part 2: {}, execution took: {}", pt1, pt2, timer.Elapsed());
 
+    std::println("====================================================");
     return 0;
 }
 #endif
