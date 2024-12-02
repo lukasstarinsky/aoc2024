@@ -1,5 +1,6 @@
 #include "AoC.hpp"
 
+#ifdef Day1
 static std::vector<int> leftVals, rightVals;
 
 static void LoadData()
@@ -17,16 +18,13 @@ static void LoadData()
 
 static auto Part1() -> i32
 {
-    auto leftCopy = leftVals;
-    auto rightCopy = rightVals;
-
-    std::sort(leftCopy.begin(), leftCopy.end());
-    std::sort(rightCopy.begin(), rightCopy.end());
+    std::sort(leftVals.begin(), leftVals.end());
+    std::sort(rightVals.begin(), rightVals.end());
 
     i32 sum = 0;
-    for (i32 i = 0; i < leftCopy.size(); ++i)
+    for (i32 i = 0; i < leftVals.size(); ++i)
     {
-        sum += std::abs(leftCopy[i] - rightCopy[i]);
+        sum += std::abs(leftVals[i] - rightVals[i]);
     }
 
     return sum;
@@ -45,7 +43,6 @@ static auto Part2() -> i64
     return similarityScore;
 }
 
-#ifdef Day1
 auto main() -> i32
 {
     std::println("Day 1");
@@ -55,12 +52,12 @@ auto main() -> i32
     std::println("Time taken to load file: {}", timer.Elapsed());
     timer.Reset();
 
-    auto p1 = Part1();
-    std::println("Part 1: {}, execution took: {}", p1, timer.Elapsed());
+    auto pt1 = Part1();
+    std::println("Part 1: {}, execution took: {}", pt1, timer.Elapsed());
     timer.Reset();
 
-    auto p2 = Part2();
-    std::println("Part 2: {}, execution took: {}", p2, timer.Elapsed());
+    auto pt2 = Part2();
+    std::println("Part 2: {}, execution took: {}", pt2, timer.Elapsed());
 
     return 0;
 }

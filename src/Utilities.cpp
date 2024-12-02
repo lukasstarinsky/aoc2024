@@ -24,14 +24,16 @@ Timer::Timer()
 auto Timer::Elapsed() -> std::string
 {
     auto endTime = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - mStartTime).count();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - mStartTime).count();
 
-    const auto hours = duration / (1'000 * 60 * 60);
-    duration %= (1'000 * 60 * 60);
-    const auto minutes = duration / (1'000 * 60);
-    duration %= (1'000 * 60);
-    const auto seconds = duration / 1'000;
-    const auto milliseconds = duration % 1'000;
+    const auto hours = duration / (1'000ll * 1'000 * 60 * 60);
+    duration %= (1'000ll * 1'000 * 60 * 60);
+    const auto minutes = duration / (1'000ll * 1'000 * 60);
+    duration %= (1'000ll * 1'000 * 60);
+    const auto seconds = duration / (1'000ll * 1'000);
+    duration %= (1'000ll * 1'000);
+    const auto milliseconds = duration / 1'000ll;
+    const auto microseconds = duration % 1'000ll;
 
     std::ostringstream out;
     if (hours > 0)
@@ -46,7 +48,14 @@ auto Timer::Elapsed() -> std::string
     {
         out << seconds << "s ";
     }
-    out << milliseconds << "ms";
+    if (milliseconds > 0 || seconds > 0)
+    {
+        out << milliseconds << "ms ";
+    }
+    if (milliseconds > 0)
+    {
+        out << microseconds << "us ";
+    }
     return out.str();
 }
 
