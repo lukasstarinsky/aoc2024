@@ -1,11 +1,12 @@
 #pragma once
 
-#define Day2
+#define Day3
 
 #include <string>
 #include <vector>
 #include <print>
 #include <algorithm>
+#include <regex>
 #include <numeric>
 #include <cassert>
 #include <fstream>
