@@ -1,4 +1,5 @@
 #include "Utilities.hpp"
+#include "AoC.hpp"
 
 auto String::Split(std::string& str, std::string_view delimiter) -> std::vector<std::string>
 {
@@ -54,7 +55,7 @@ auto Timer::Elapsed() -> std::string
     }
     if (milliseconds > 0 || microseconds > 0)
     {
-        out << microseconds << "us ";
+        out << microseconds << "µs ";
     }
     return out.str();
 }
