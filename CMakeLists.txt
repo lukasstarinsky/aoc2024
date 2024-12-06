@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.29)
 project(AoC2024)
 
 set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 file(GLOB_RECURSE HEADER_FILES src/*.hpp)
 file(GLOB_RECURSE SOURCE_FILES src/*.cpp)

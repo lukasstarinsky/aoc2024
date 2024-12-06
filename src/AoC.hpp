@@ -1,14 +1,17 @@
 #pragma once
 
-#define Day4
+#define Day5
 
 #include <string>
 #include <vector>
 #include <print>
+#include <unordered_map>
 #include <algorithm>
 #include <regex>
 #include <numeric>
 #include <cassert>
+#include <mutex>
+#include <thread>
 #include <fstream>
 #include <cstdint>
 #include <thread>
