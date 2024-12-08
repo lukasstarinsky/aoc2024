@@ -1,6 +1,6 @@
 #pragma once
 
-#define Day6
+#define Day7
 
 #include <string>
 #include <vector>
